@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>Task List</h1>
+    <div>
+      <form @submit.prevent="submitForm">
+        <input type="text" v-model="newTask" placeholder="Enter a task" />
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+    <TasksComponent :items="tasks" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TasksComponent from "./components/TasksComponent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    TasksComponent,
+  },
+  data() {
+    return {
+      newTask:"",
+      tasks: [],
+    };
+  },
+  methods: {
+    submitForm() {
+      this.tasks.push(this.newTask);
+      this.newTask = "";
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/* Add your styles here */
 </style>
