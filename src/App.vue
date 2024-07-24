@@ -7,7 +7,7 @@
         <button type="submit">Add Task</button>
       </form>
     </div>
-    <TasksComponent :items="tasks" />
+    <TasksComponent :items="tasks" @update-items="updateItems" @delete-item="deleteTask"/>
   </div>
 </template>
 
@@ -21,15 +21,23 @@ export default {
   },
   data() {
     return {
-      newTask:"",
+      newTask: "",
       tasks: [],
     };
   },
   methods: {
     submitForm() {
-      this.tasks.push(this.newTask);
-      this.newTask = "";
+      if (this.newTask) {
+        this.tasks.push(this.newTask);
+        this.newTask = "";
+      }
     },
+    updateItems(newTasks) {
+      this.tasks = newTasks;
+    },
+    deleteTask(index) {
+      this.tasks.splice(index, 1);
+    }
   },
 };
 </script>
